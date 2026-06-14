@@ -23,7 +23,9 @@ CREATE TABLE postings (
     work_type TEXT,
     currency TEXT,
     normalized_salary REAL,
-    FOREIGN KEY (company_id) REFERENCES companies(company_id)
+    FOREIGN KEY (company_id) 
+        REFERENCES companies(company_id)
+
 );
 
 CREATE TABLE skills (
@@ -36,3 +38,48 @@ CREATE TABLE industries (
     industry_name TEXT
 );
 
+CREATE TABLE job_skills (
+
+    job_id INTEGER,
+    skill_abr VARCHAR(20),
+
+    PRIMARY KEY(job_id, skill_abr),
+
+    FOREIGN KEY(job_id)
+        REFERENCES postings(job_id),
+
+    FOREIGN KEY(skill_abr)
+        REFERENCES skills(skill_abr)
+
+);
+
+CREATE TABLE job_industries (
+
+    job_id INTEGER,
+    industry_id INTEGER,
+
+    PRIMARY KEY(job_id, industry_id),
+
+    FOREIGN KEY(job_id)
+        REFERENCES postings(job_id),
+
+    FOREIGN KEY(industry_id)
+        REFERENCES industries(industry_id)
+
+);
+
+CREATE TABLE salaries (
+
+    salary_id INTEGER PRIMARY KEY,
+    job_id INTEGER,
+    max_salary REAL,
+    med_salary REAL,
+    min_salary REAL,
+    pay_period VARCHAR(20),
+    currency VARCHAR(10),
+    compensation_type VARCHAR(50),
+
+    FOREIGN KEY(job_id)
+        REFERENCES postings(job_id)
+
+);
