@@ -4,18 +4,15 @@ conn = sqlite3.connect("jobs.db")
 
 cursor = conn.cursor()
 
-cursor.execute("""
-SELECT
-    s.skill_name,
-    COUNT(*) AS demand
-FROM job_skills js
-JOIN skills s
-ON js.skill_abr = s.skill_abr
-GROUP BY s.skill_name
-ORDER BY demand DESC
-LIMIT 10;
-""")
+with open("sql/top_skills.sql", "r") as file:
+    sql_script = file.read()
 
-print(cursor.fetchone())
+cursor.execute(sql_script)
+
+results = cursor.fetchall()
+
+for row in results:
+    print(row)
+
 
 conn.close()
