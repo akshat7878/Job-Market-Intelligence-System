@@ -6,4 +6,5 @@ venv/
 .ipynb_checkpoints/
 data/
 *.db
+# !jobs_demo.db
 .DS_Store

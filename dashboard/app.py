@@ -34,7 +34,7 @@ def run_query_from_file(sql_file):
 
 @st.cache_data
 def run_query(query):
-    conn = sqlite3.connect("jobs.db")
+    conn = sqlite3.connect("jobs_demo.db")
 
     df = pd.read_sql_query(query, conn)
 
